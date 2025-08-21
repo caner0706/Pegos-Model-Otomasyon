@@ -45,14 +45,35 @@ jobs:
               json.dump(result, f)
           EOF
 
+      # 📦 CSV çıktıları kaydet
+      - name: Save CSV outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: scraping-results
+          path: |
+            XVeriler/*.csv
+            Birleştirilmis_CSV/*.csv
+            Düzenleme_CSV/*.csv
+          
+      # 📦 Notebook çıktısı kaydet
       - name: Notebook Çıktısını Yükle
         uses: actions/upload-artifact@v4
         with:
           name: notebook-output
           path: sonuc.ipynb
+          retention-days: 7
 
+      # 📦 JSON çıktısı kaydet
       - name: JSON Çıktıyı Yükle
         uses: actions/upload-artifact@v4
         with:
           name: json-output
           path: sonuc.json
+          retention-days: 7
+
+      # (Opsiyonel) artifacts indirme örneği
+      - name: Download artifacts example
+        uses: actions/download-artifact@v4
+        with:
+          name: scraping-results
+          path: ./downloaded_results
