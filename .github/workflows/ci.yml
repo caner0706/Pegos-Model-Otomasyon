@@ -45,31 +45,33 @@ jobs:
               json.dump(result, f)
           EOF
 
-      # ✅ Ham CSV çıktılarını kaydet
+      # 📦 CSV çıktıları kaydet
       - name: Save CSV outputs
         uses: actions/upload-artifact@v4
         with:
           name: scraping-results
-          path: Pegos_Model_MVP/XVeriler/*.csv
+          path: XVeriler/*.csv
+          retention-days: 7   # artifacts 7 gün saklansın
 
-      # ✅ Birleştirilmiş CSV oluştur ve kaydet
-      - name: Merge CSV files
-        run: python "Pegos_Model_MVP/merge_csv.py"
-
-      - name: Save merged CSV
-        uses: actions/upload-artifact@v3
-        with:
-          name: merged-results
-          path: Pegos_Model_MVP/Birleştirilmis_CSV/Birleştirilmis_CSV.csv
-
+      # 📦 Notebook çıktısı kaydet
       - name: Notebook Çıktısını Yükle
         uses: actions/upload-artifact@v4
         with:
           name: notebook-output
           path: sonuc.ipynb
+          retention-days: 7
 
+      # 📦 JSON çıktısı kaydet
       - name: JSON Çıktıyı Yükle
         uses: actions/upload-artifact@v4
         with:
           name: json-output
           path: sonuc.json
+          retention-days: 7
+
+      # (Opsiyonel) artifacts indirme örneği
+      - name: Download artifacts example
+        uses: actions/download-artifact@v4
+        with:
+          name: scraping-results
+          path: ./downloaded_results
