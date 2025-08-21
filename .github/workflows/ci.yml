@@ -21,8 +21,7 @@ jobs:
       - name: Chrome ve ChromeDriver Kur
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget unzip xvfb libxi6 libgconf-2-4 \
-            libappindicator1 fonts-liberation libgbm-dev libnss3 lsb-release xdg-utils
+          sudo apt-get install -y wget unzip xvfb libxi6 libgbm-dev libnss3 lsb-release xdg-utils fonts-liberation
           wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -fy install
           CHROME_VERSION=$(google-chrome --version | cut -d ' ' -f3)
