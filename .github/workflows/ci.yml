@@ -25,7 +25,7 @@ jobs:
           pip install jupyter nbconvert
 
       - name: Notebook Çalıştır
-        run: jupyter nbconvert --to notebook --execute x.ipynb --output sonuc.ipynb
+        run: jupyter nbconvert --to notebook --execute "Pegos Model MVP/x.ipynb" --output sonuc.ipynb
 
       - name: JSON Çıktıyı Üret
         run: |
