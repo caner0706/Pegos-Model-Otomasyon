@@ -30,7 +30,7 @@ jobs:
       # 4. Notebook çalıştır (x.ipynb)
       - name: Run notebook
         run: |
-          jupyter nbconvert --to notebook --execute "x.ipynb" --output sonuc.ipynb --output-dir ./outputs
+          jupyter nbconvert --to notebook --execute "Pegos Model MVP/x.ipynb" --output sonuc.ipynb --output-dir ./outputs
 
       # 5. CSV oluşturma (örnek: birleştirme adımı)
       - name: Merge CSV files
