@@ -1,0 +1,12 @@
+pandas
+numpy
+requests
+plotly
+yfinance
+scikit-learn
+matplotlib
+mplfinance
+beautifulsoup4
+selenium
+webdriver-manager
+joblib
