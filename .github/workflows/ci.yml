@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Repo Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Python Kur
         uses: actions/setup-python@v4
@@ -39,13 +39,13 @@ jobs:
           EOF
 
       - name: Notebook Çıktısını Yükle
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: notebook-output
           path: sonuc.ipynb
 
       - name: JSON Çıktıyı Yükle
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: json-output
           path: sonuc.json
