@@ -3,7 +3,7 @@ name: Notebook Otomasyon
 on:
   schedule:
     - cron: "0 */2 * * *"   # her 2 saatte bir çalışır
-  workflow_dispatch:        # elle tetikleme butonu
+  workflow_dispatch:
 
 jobs:
   build:
@@ -29,51 +29,30 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install jupyter nbconvert
+          pip install jupyter nbconvert pandas
 
       - name: Notebook Çalıştır
-        run: jupyter nbconvert --to notebook --execute "Pegos Model MVP/x.ipynb" --output sonuc.ipynb
+        run: jupyter nbconvert --to notebook --execute "x.ipynb" --output sonuc.ipynb
 
-      - name: JSON Çıktıyı Üret
-        run: |
-          python - <<'EOF'
-          import json
-          from datetime import datetime
-          # Buraya kendi çıktı değişkenini yaz
-          result = {"status": "success", "time": datetime.now().isoformat()}
-          with open("sonuc.json", "w") as f:
-              json.dump(result, f)
-          EOF
+      # 🆕 2. ADIM: CSV'leri Birleştir
+      - name: CSV Birleştirme
+        run: python scripts/merge_csv.py
 
-      # 📦 CSV çıktıları kaydet
-      - name: Save CSV outputs
+      # Artifact olarak yükle
+      - name: Save Merged CSV
         uses: actions/upload-artifact@v4
         with:
-          name: scraping-results
-          path: |
-            XVeriler/*.csv
-            Birleştirilmis_CSV/*.csv
-            Düzenleme_CSV/*.csv
-          
-      # 📦 Notebook çıktısı kaydet
+          name: merged-csv
+          path: Birleştirilmis_CSV/Birleştirilmis_CSV.csv
+
       - name: Notebook Çıktısını Yükle
         uses: actions/upload-artifact@v4
         with:
           name: notebook-output
           path: sonuc.ipynb
-          retention-days: 7
 
-      # 📦 JSON çıktısı kaydet
       - name: JSON Çıktıyı Yükle
         uses: actions/upload-artifact@v4
         with:
           name: json-output
           path: sonuc.json
-          retention-days: 7
-
-      # (Opsiyonel) artifacts indirme örneği
-      - name: Download artifacts example
-        uses: actions/download-artifact@v4
-        with:
-          name: scraping-results
-          path: ./downloaded_results
