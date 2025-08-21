@@ -45,6 +45,23 @@ jobs:
               json.dump(result, f)
           EOF
 
+      # ✅ Ham CSV çıktılarını kaydet
+      - name: Save CSV outputs
+        uses: actions/upload-artifact@v3
+        with:
+          name: scraping-results
+          path: Pegos_Model_MVP/XVeriler/*.csv
+
+      # ✅ Birleştirilmiş CSV oluştur ve kaydet
+      - name: Merge CSV files
+        run: python "Pegos_Model_MVP/merge_csv.py"
+
+      - name: Save merged CSV
+        uses: actions/upload-artifact@v3
+        with:
+          name: merged-results
+          path: Pegos_Model_MVP/Birleştirilmis_CSV/Birleştirilmis_CSV.csv
+
       - name: Notebook Çıktısını Yükle
         uses: actions/upload-artifact@v4
         with:
